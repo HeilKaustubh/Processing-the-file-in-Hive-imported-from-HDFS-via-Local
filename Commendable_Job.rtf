@@ -1,0 +1,177 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.17134}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 sandbox-hdp login: root                                                                                                                     \par
+root@sandbox-hdp.hortonworks.com's password:                                                                                                \par
+Last login: Wed Feb 13 10:15:33 2019 from 172.18.0.2                                                                                        \par
+[root@sandbox-hdp ~]# ls                                                                                                                    \par
+anaconda-ks.cfg  kausti.java  local_bdp   mapreduce                    SumReducer.java  WordCount.jar   WordMapper.java\par
+kausti.class     kk.txt       local_tutu  mysql-connector-java-5.1.45  WCclasses        WordCount.java\par
+[root@sandbox-hdp ~]# pwd                                                                                                                   \par
+/root                                                                                                                                       \par
+[root@sandbox-hdp ~]# cd local_tutu                                                                                                         \par
+[root@sandbox-hdp local_tutu]# ls                                                                                                           \par
+problems\par
+[root@sandbox-hdp local_tutu]# cd problems                                                                                                  \par
+[root@sandbox-hdp problems]# ls                                                                                                             \par
+pr1.csv                                                                                                                                     \par
+[root@sandbox-hdp problems]# cd //                                                                                                          \par
+[root@sandbox-hdp //]# cd ~                                                                                                                 \par
+[root@sandbox-hdp ~]# vi local_tutu/problems/pr1.csv                                                                                        \par
+[root@sandbox-hdp ~]# hadoop fs -rm popeye/pr1.csv                                                                                          \par
+19/02/13 11:16:26 INFO fs.TrashPolicyDefault: Moved: 'hdfs://sandbox-hdp.hortonworks.com:8020/user/root/popeye/pr1.csv' to trash at: hdfs://\par
+sandbox-hdp.hortonworks.com:8020/user/root/.Trash/Current/user/root/popeye/pr1.csv                                                          \par
+[root@sandbox-hdp ~]# hadoop fs -put local_tutu/problems/pr1.csv popeye                                                                     \par
+[root@sandbox-hdp ~]# hadoop fs -ls popeye                                                                                                  \par
+Found 1 items                                                                                                                               \par
+-rw-r--r--   1 root hdfs         27 2019-02-13 11:17 popeye/pr1.csv                                                                         \par
+[root@sandbox-hdp ~]# hadoop fs -chmod 777 popeye/pr1.csv                                                                                   \par
+[root@sandbox-hdp ~]# hadoop fs -chmod 777 popeye                                                                                           \par
+[root@sandbox-hdp ~]# hive                                                                                                                  \par
+SLF4J: Class path contains multiple SLF4J bindings.                                                                                         \par
+SLF4J: Found binding in [jar:file:/usr/hdp/3.0.1.0-187/hive/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]       \par
+SLF4J: Found binding in [jar:file:/usr/hdp/3.0.1.0-187/hadoop/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]        \par
+SLF4J: See {{\field{\*\fldinst{HYPERLINK http://www.slf4j.org/codes.html#multiple_bindings }}{\fldrslt{http://www.slf4j.org/codes.html#multiple_bindings\ul0\cf0}}}}\f0\fs22  for an explanation.                                                            \par
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]                                                              \par
+Connecting to jdbc:hive2://sandbox-hdp.hortonworks.com:2181/default;password=hive;serviceDiscoveryMode=zooKeeper;user=hive;zooKeeperNamespac\par
+e=hiveserver2                                                                                                                               \par
+19/02/13 11:17:53 [main]: INFO jdbc.HiveConnection: Connected to sandbox-hdp.hortonworks.com:10000                                          \par
+Connected to: Apache Hive (version 3.1.0.3.0.1.0-187)                                                                                       \par
+Driver: Hive JDBC (version 3.1.0.3.0.1.0-187)                                                                                               \par
+Transaction isolation: TRANSACTION_REPEATABLE_READ                                                                                          \par
+Beeline version 3.1.0.3.0.1.0-187 by Apache Hive                                                                                            \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2> CREATE EXTERNAL TABLE IF NOT EXISTS bdp.hv_csv_table1(id int,Code STRING,age int) ROW FORMAT \par
+DELIMITED FIELDS TERMINATED BY ',' STORED lines terminated as '\\n' AS TEXTFILE LOCATION '/user/root/popeye';                                \par
+Error: Error while compiling statement: FAILED: ParseException line 1:135 cannot recognize input near 'STORED' 'lines' 'terminated' in table\par
+ file format specification (state=42000,code=40000)                                                                                         \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2> CREATE EXTERNAL TABLE IF NOT EXISTS bdp.hv_csv_table1(id int,Code STRING,age int) ROW FORMAT \par
+DELIMITED FIELDS TERMINATED BY ',' STORED lines terminated by '\\n' AS TEXTFILE LOCATION '/user/root/popeye';                                \par
+Error: Error while compiling statement: FAILED: ParseException line 1:135 cannot recognize input near 'STORED' 'lines' 'terminated' in table\par
+ file format specification (state=42000,code=40000)                                                                                         \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2>                                                                                              \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2> CREATE EXTERNAL TABLE IF NOT EXISTS bdp.hv_csv_table1(id int,Code STRING,age int) ROW FORMAT \par
+DELIMITED FIELDS TERMINATED BY ',' lines terminated by '\\n' STORED AS TEXTFILE LOCATION '/user/root/popeye';                                \par
+INFO  : Compiling command(queryId=hive_20190213112132_c130c953-3a7c-4203-9c8c-d3a1feeada3d): CREATE EXTERNAL TABLE IF NOT EXISTS bdp.hv_csv_\par
+table1(id int,Code STRING,age int) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' lines terminated by '\\n' STORED AS TEXTFILE LOCATION '/user\par
+/root/popeye'                                                                                                                               \par
+INFO  : Semantic Analysis Completed (retrial = false)                                                                                       \par
+INFO  : Returning Hive schema: Schema(fieldSchemas:null, properties:null)                                                                   \par
+INFO  : Completed compiling command(queryId=hive_20190213112132_c130c953-3a7c-4203-9c8c-d3a1feeada3d); Time taken: 0.066 seconds            \par
+INFO  : Executing command(queryId=hive_20190213112132_c130c953-3a7c-4203-9c8c-d3a1feeada3d): CREATE EXTERNAL TABLE IF NOT EXISTS bdp.hv_csv_\par
+table1(id int,Code STRING,age int) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' lines terminated by '\\n' STORED AS TEXTFILE LOCATION '/user\par
+/root/popeye'                                                                                                                               \par
+INFO  : Starting task [Stage-0:DDL] in serial mode                                                                                          \par
+INFO  : Completed executing command(queryId=hive_20190213112132_c130c953-3a7c-4203-9c8c-d3a1feeada3d); Time taken: 0.157 seconds            \par
+INFO  : OK                                                                                                                                  \par
+No rows affected (0.459 seconds)                                                                                                            \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2> select*from bdp.hv_csv_table1;                                                               \par
+INFO  : Compiling command(queryId=hive_20190213112152_5312320c-3db6-45e4-b4d1-cbbe3e7e88df): select*from bdp.hv_csv_table1                  \par
+INFO  : Semantic Analysis Completed (retrial = false)                                                                                       \par
+INFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:hv_csv_table1.id, type:int, comment:null), FieldSchema(name:hv_csv_tabl\par
+e1.code, type:string, comment:null), FieldSchema(name:hv_csv_table1.age, type:int, comment:null)], properties:null)                         \par
+INFO  : Completed compiling command(queryId=hive_20190213112152_5312320c-3db6-45e4-b4d1-cbbe3e7e88df); Time taken: 0.468 seconds            \par
+INFO  : Executing command(queryId=hive_20190213112152_5312320c-3db6-45e4-b4d1-cbbe3e7e88df): select*from bdp.hv_csv_table1                  \par
+INFO  : Completed executing command(queryId=hive_20190213112152_5312320c-3db6-45e4-b4d1-cbbe3e7e88df); Time taken: 0.015 seconds            \par
+INFO  : OK                                                                                                                                  \par
++-------------------+---------------------+--------------------+                                                                            \par
+| hv_csv_table1.id  | hv_csv_table1.code  | hv_csv_table1.age  |                                                                            \par
++-------------------+---------------------+--------------------+                                                                            \par
+| 1                 | Kau                 | NULL               |                                                                            \par
+| 2                 | Kar                 | NULL               |                                                                            \par
+| 3                 | Deb                 | 10                 |                                                                            \par
++-------------------+---------------------+--------------------+                                                                            \par
+3 rows selected (0.674 seconds)                                                                                                             \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2> CREATE EXTERNAL TABLE IF NOT EXISTS bdp.hv_csv_table2(id int,Code STRING,age int) ROW FORMAT \par
+DELIMITED FIELDS TERMINATED BY ',' and '\\n' lines terminated by '\\n' STORED AS TEXTFILE LOCATION '/user/root/popeye';                       \par
+Error: Error while compiling statement: FAILED: ParseException line 1:128 cannot recognize input near 'and' ''\\n'' 'lines' in serde properti\par
+es specification (state=42000,code=40000)                                                                                                   \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2> Closing: 0: jdbc:hive2://sandbox-hdp.hortonworks.com:2181/default;password=hive;serviceDiscov\par
+eryMode=zooKeeper;user=hive;zooKeeperNamespace=hiveserver2                                                                                  \par
+[root@sandbox-hdp ~]# vi local_tutu/problems/pr1.csv                                                                                        \par
+[root@sandbox-hdp ~]# hadoop fs -rm popeye/pr1.csv                                                                                          \par
+19/02/13 11:26:56 INFO fs.TrashPolicyDefault: Moved: 'hdfs://sandbox-hdp.hortonworks.com:8020/user/root/popeye/pr1.csv' to trash at: hdfs://\par
+sandbox-hdp.hortonworks.com:8020/user/root/.Trash/Current/user/root/popeye/pr1.csv1550057216817                                             \par
+[root@sandbox-hdp ~]# hadoop fs -put popeye/pr1.csv                                                                                         \par
+put: `popeye/pr1.csv': No such file or directory                                                                                            \par
+[root@sandbox-hdp ~]# hadoop fs -put pr1.csv                                                                                                \par
+put: `pr1.csv': No such file or directory                                                                                                   \par
+[root@sandbox-hdp ~]# hadoop fs -put pr1.csv popeye                                                                                         \par
+put: `pr1.csv': No such file or directory                                                                                                   \par
+[root@sandbox-hdp ~]# hadoop fs -put root/local_tutu/problems/pr1.csv popeye                                                                \par
+put: `root/local_tutu/problems/pr1.csv': No such file or directory                                                                          \par
+[root@sandbox-hdp ~]# hadoop fs -put local_tutu/problems/pr1.csv popeye                                                                     \par
+[root@sandbox-hdp ~]# hadoop fs -put /local_tutu/problems/pr1.csv popeye                                                                    \par
+put: `/local_tutu/problems/pr1.csv': No such file or directory                                                                              \par
+[root@sandbox-hdp ~]# hadoop fs -ls popeye                                                                                                  \par
+Found 1 items                                                                                                                               \par
+-rw-r--r--   1 root hdfs         29 2019-02-13 11:29 popeye/pr1.csv                                                                         \par
+[root@sandbox-hdp ~]# hadoop fs -chmod 777 popeye/pr1.csv                                                                                   \par
+[root@sandbox-hdp ~]# hadoop fs -chmod 777 popeye                                                                                           \par
+[root@sandbox-hdp ~]# hive                                                                                                                  \par
+SLF4J: Class path contains multiple SLF4J bindings.                                                                                         \par
+SLF4J: Found binding in [jar:file:/usr/hdp/3.0.1.0-187/hive/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]       \par
+SLF4J: Found binding in [jar:file:/usr/hdp/3.0.1.0-187/hadoop/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]        \par
+SLF4J: See {{\field{\*\fldinst{HYPERLINK http://www.slf4j.org/codes.html#multiple_bindings }}{\fldrslt{http://www.slf4j.org/codes.html#multiple_bindings\ul0\cf0}}}}\f0\fs22  for an explanation.                                                            \par
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]                                                              \par
+Connecting to jdbc:hive2://sandbox-hdp.hortonworks.com:2181/default;password=hive;serviceDiscoveryMode=zooKeeper;user=hive;zooKeeperNamespac\par
+e=hiveserver2                                                                                                                               \par
+19/02/13 11:30:39 [main]: INFO jdbc.HiveConnection: Connected to sandbox-hdp.hortonworks.com:10000                                          \par
+Connected to: Apache Hive (version 3.1.0.3.0.1.0-187)                                                                                       \par
+Driver: Hive JDBC (version 3.1.0.3.0.1.0-187)                                                                                               \par
+Transaction isolation: TRANSACTION_REPEATABLE_READ                                                                                          \par
+Beeline version 3.1.0.3.0.1.0-187 by Apache Hive                                                                                            \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2> CREATE EXTERNAL TABLE IF NOT EXISTS bdp.hv_csv_table2(id int,Code STRING,age int) ROW FORMAT \par
+DELIMITED FIELDS TERMINATED BY ',' lines terminated by '\\n' STORED AS TEXTFILE LOCATION '/user/root/popeye';                                \par
+INFO  : Compiling command(queryId=hive_20190213113117_2f10ce29-40ea-45ea-9de7-7d053fe9a762): CREATE EXTERNAL TABLE IF NOT EXISTS bdp.hv_csv_\par
+table2(id int,Code STRING,age int) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' lines terminated by '\\n' STORED AS TEXTFILE LOCATION '/user\par
+/root/popeye'                                                                                                                               \par
+INFO  : Semantic Analysis Completed (retrial = false)                                                                                       \par
+INFO  : Returning Hive schema: Schema(fieldSchemas:null, properties:null)                                                                   \par
+INFO  : Completed compiling command(queryId=hive_20190213113117_2f10ce29-40ea-45ea-9de7-7d053fe9a762); Time taken: 0.176 seconds            \par
+INFO  : Executing command(queryId=hive_20190213113117_2f10ce29-40ea-45ea-9de7-7d053fe9a762): CREATE EXTERNAL TABLE IF NOT EXISTS bdp.hv_csv_\par
+table2(id int,Code STRING,age int) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' lines terminated by '\\n' STORED AS TEXTFILE LOCATION '/user\par
+/root/popeye'                                                                                                                               \par
+INFO  : Starting task [Stage-0:DDL] in serial mode                                                                                          \par
+INFO  : Completed executing command(queryId=hive_20190213113117_2f10ce29-40ea-45ea-9de7-7d053fe9a762); Time taken: 0.169 seconds            \par
+INFO  : OK                                                                                                                                  \par
+No rows affected (0.798 seconds)                                                                                                            \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2> select*from bdp.hv_csv_table1;                                                               \par
+INFO  : Compiling command(queryId=hive_20190213113134_e7b50fbf-cc63-4645-9b3c-67add5495074): select*from bdp.hv_csv_table1\par
+INFO  : Semantic Analysis Completed (retrial = false)                                                                                       \par
+INFO  : Returning Hive schema: Schema(fieldSchemas:[FieldSchema(name:hv_csv_table1.id, type:int, comment:null), FieldSchema(name:hv_csv_tabl\par
+e1.code, type:string, comment:null), FieldSchema(name:hv_csv_table1.age, type:int, comment:null)], properties:null)                         \par
+INFO  : Completed compiling command(queryId=hive_20190213113134_e7b50fbf-cc63-4645-9b3c-67add5495074); Time taken: 0.187 seconds            \par
+INFO  : Executing command(queryId=hive_20190213113134_e7b50fbf-cc63-4645-9b3c-67add5495074): select*from bdp.hv_csv_table1                  \par
+INFO  : Completed executing command(queryId=hive_20190213113134_e7b50fbf-cc63-4645-9b3c-67add5495074); Time taken: 0.009 seconds            \par
+INFO  : OK                                                                                                                                  \par
++-------------------+---------------------+--------------------+                                                                            \par
+| hv_csv_table1.id  | hv_csv_table1.code  | hv_csv_table1.age  |                                                                            \par
++-------------------+---------------------+--------------------+                                                                            \par
+| 1                 | Kau                 | 5                  |                                                                            \par
+| 2                 | Kar                 | 7                  |                                                                            \par
+| 3                 | Deb                 | 10                 |                                                                            \par
++-------------------+---------------------+--------------------+                                                                            \par
+3 rows selected (0.326 seconds)                                                                                                             \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2> update bdp.hv_csv_table1 set code="Karthik" where id=2;                                      \par
+Error: Error while compiling statement: FAILED: SemanticException [Error 10297]: Attempt to do update or delete on table bdp.hv_csv_table1 t\par
+hat is not transactional (state=42000,code=10297)                                                                                           \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2> version                                                                                      \par
+. . . . . . . . . . . . . . . . . . . . . . .> ;                                                                                            \par
+Error: Error while compiling statement: FAILED: ParseException line 1:0 cannot recognize input near 'version' '<EOF>' '<EOF>' (state=42000,c\par
+ode=40000)                                                                                                                                  \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2>                                                                                              \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2>                                                                                              \par
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2> cd ..                                                                                        \par
+. . . . . . . . . . . . . . . . . . . . . . .>                                                                                              \par
+. . . . . . . . . . . . . . . . . . . . . . .>                                                                                              \par
+. . . . . . . . . . . . . . . . . . . . . . .>                                                                                              \par
+. . . . . . . . . . . . . . . . . . . . . . .>                                                                                              \par
+. . . . . . . . . . . . . . . . . . . . . . .>                                                                                              \par
+. . . . . . . . . . . . . . . . . . . . . . .>                                                                                              \par
+. . . . . . . . . . . . . . . . . . . . . . .> cd /                                                                                         \par
+. . . . . . . . . . . . . . . . . . . . . . .> cd ..                                                                                        \par
+. . . . . . . . . . . . . . . . . . . . . . .> Closing: 0: jdbc:hive2://sandbox-hdp.hortonworks.com:2181/default;password=hive;serviceDiscov\par
+eryMode=zooKeeper;user=hive;zooKeeperNamespace=hiveserver2                                                                                  \par
+[root@sandbox-hdp ~]#                    \par
+}
+ 

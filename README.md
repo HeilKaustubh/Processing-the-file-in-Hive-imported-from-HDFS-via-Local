@@ -4,8 +4,6 @@ You must have Sandbox (Hortonworks) installed in the system
 
 Steps : 
 
-Initializng the Spark-shell.
-
 
 
 Making the directory in the HDFS

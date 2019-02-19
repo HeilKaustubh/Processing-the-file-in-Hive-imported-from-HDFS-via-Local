@@ -1,2 +1,15 @@
-# Processing-the-file-in-Hive-imported-from-HDFS-via-Local
-#HDFS #HIVE #EXTERNAL_TABLES #SQL #QUERYING
+Note : 
+
+You must have Sandbox (Hortonworks) installed in the system
+
+Steps : 
+
+Initializng the Spark-shell
+Making the directory in the HDFS
+Putting the file in HDFS Directory
+Using the CHMOD command to change the access
+Initializing the hive
+Creating the schema
+Creating the external tables
+Writing the query
+

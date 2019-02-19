@@ -20,7 +20,7 @@ Using the CHMOD command to change the access
 
 
 
-Initializing the hive
+Initialize the hive
 
 
 
